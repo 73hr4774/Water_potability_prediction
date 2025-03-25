@@ -77,7 +77,9 @@ expected_columns = ["pH", "Hardness", "Solids", "Chloramines", "Sulfate",
                     "Conductivity", "Organic_carbon", "Trihalomethanes", "Turbidity"]
 
 # Reorder and convert to numpy array for scaling
-input_scaled = scaler.transform(input_df[expected_columns])
+# Convert input to numpy array to avoid feature name mismatch
+input_scaled = scaler.transform(input_df[expected_columns].to_numpy())
+
 
 
 
