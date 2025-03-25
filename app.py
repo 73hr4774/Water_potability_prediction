@@ -64,7 +64,16 @@ data = {
 input_df = pd.DataFrame(data)
 
 # Scale user input to match model training
-input_scaled = scaler.transform(input_df)
+# Correct input order to match training data
+expected_columns = ["pH", "Hardness", "Solids", "Chloramines", "Sulfate",
+                    "Conductivity", "Organic_carbon", "Trihalomethanes", "Turbidity"]
+
+# Reorder columns to ensure they match the expected order
+input_df = input_df[expected_columns]
+
+# Scale user input to match model training
+input_scaled = pd.DataFrame(scaler.transform(input_df), columns=expected_columns)
+
 
 # Prediction button
 if st.button("Predict Potability"):
