@@ -72,7 +72,13 @@ expected_columns = ["pH", "Hardness", "Solids", "Chloramines", "Sulfate",
 input_df = input_df[expected_columns]
 
 # Scale user input to match model training
-input_scaled = pd.DataFrame(scaler.transform(input_df), columns=expected_columns)
+# Ensure column order matches expected feature order
+expected_columns = ["pH", "Hardness", "Solids", "Chloramines", "Sulfate",
+                    "Conductivity", "Organic_carbon", "Trihalomethanes", "Turbidity"]
+
+# Reorder and convert to numpy array for scaling
+input_scaled = scaler.transform(input_df[expected_columns])
+
 
 
 # Prediction button
